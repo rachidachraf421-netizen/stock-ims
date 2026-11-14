@@ -1,0 +1,379 @@
+/* ==========================================================================
+   StockIMS - identité visuelle
+   Univers : atelier textile. Indigo (teinture), safran (fil de couture),
+   vert-de-gris pour les entrées, garance (rouge) pour les sorties.
+   Motif signature : le point de couture (trait pointillé safran).
+   ========================================================================== */
+
+:root {
+    --indigo: #1f2c5a;
+    --indigo-clair: #3a4d94;
+    --indigo-pale: #e1e6f4;
+    --safran: #e3a21a;
+    --toile: #eceff4;
+    --papier: #ffffff;
+    --encre: #151b2e;
+    --gris: #596277;
+    --trait: #c4cadb;
+    --entree: #17694f;
+    --entree-pale: #dff1ea;
+    --sortie: #a8322d;
+    --sortie-pale: #f8e1df;
+
+    --police-titre: "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+    --police-texte: "Segoe UI", system-ui, -apple-system, Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+[hidden] { display: none !important; }
+
+html { font-size: 100%; }
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: var(--toile);
+    color: var(--encre);
+    font-family: var(--police-texte);
+    font-size: 1rem;
+    line-height: 1.55;
+}
+
+h1, h2 {
+    font-family: var(--police-titre);
+    color: var(--indigo);
+    line-height: 1.15;
+    margin: 0 0 .5rem;
+}
+h1 { font-size: clamp(1.9rem, 4vw, 2.7rem); font-weight: 700; letter-spacing: -.01em; }
+h2 { font-size: 1.45rem; margin-top: 2.25rem; }
+
+p { margin: 0 0 1rem; max-width: 65ch; }
+a { color: var(--indigo-clair); text-underline-offset: 3px; }
+a:hover { color: var(--indigo); }
+
+:focus-visible {
+    outline: 3px solid var(--safran);
+    outline-offset: 2px;
+}
+
+/* ---------- En-tête et navigation ---------- */
+.entete {
+    position: relative;
+    background: var(--indigo);
+    color: #fff;
+    padding-bottom: 6px;
+}
+/* le point de couture */
+.entete::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 4px;
+    background: repeating-linear-gradient(90deg, var(--safran) 0 14px, transparent 14px 22px);
+}
+.entete-contenu {
+    max-width: 68rem;
+    margin: 0 auto;
+    padding: .9rem 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+.marque {
+    display: inline-flex;
+    align-items: center;
+    gap: .6rem;
+    font-family: var(--police-titre);
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #fff;
+    text-decoration: none;
+}
+.marque:hover { color: #fff; }
+.marque-fil {
+    width: 1.6rem;
+    height: 3px;
+    background: repeating-linear-gradient(90deg, var(--safran) 0 6px, transparent 6px 9px);
+}
+.navigation { display: flex; gap: .25rem; flex-wrap: wrap; }
+.navigation a {
+    color: #dfe5f7;
+    text-decoration: none;
+    padding: .45rem .8rem;
+    border-bottom: 3px solid transparent;
+}
+.navigation a:hover { color: #fff; border-bottom-color: var(--indigo-clair); }
+.navigation a.actif { color: #fff; border-bottom-color: var(--safran); font-weight: 600; }
+
+.menu-bouton {
+    display: none;
+    font: inherit;
+    color: #fff;
+    background: transparent;
+    border: 1px solid #8e9bd0;
+    border-radius: 4px;
+    padding: .4rem .9rem;
+    cursor: pointer;
+}
+
+/* ---------- Mise en page ---------- */
+.page {
+    flex: 1;
+    width: 100%;
+    max-width: 68rem;
+    margin: 0 auto;
+    padding: 2rem 1.25rem 3rem;
+}
+.page-etroite { max-width: 40rem; }
+
+.titre-page {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.25rem;
+}
+.titre-page h1 { margin: 0; }
+.chapeau { color: var(--gris); font-size: 1.05rem; }
+.fil { color: var(--gris); font-size: .92rem; margin-bottom: .75rem; }
+
+.pied {
+    border-top: 1px solid var(--trait);
+    background: var(--papier);
+    color: var(--gris);
+    font-size: .88rem;
+}
+.pied p { max-width: 68rem; margin: 0 auto; padding: 1rem 1.25rem; }
+
+/* ---------- Accueil ---------- */
+.intro {
+    display: grid;
+    grid-template-columns: 1fr minmax(15rem, 19rem);
+    gap: 2.5rem;
+    align-items: center;
+    padding: 1rem 0 2.25rem;
+}
+.intro-texte p { font-size: 1.15rem; color: var(--gris); }
+
+/* l'étiquette cousue : bord pointillé comme une étiquette de vêtement */
+.etiquette {
+    background: var(--papier);
+    padding: 1.6rem 1.4rem;
+    outline: 2px dashed var(--indigo);
+    outline-offset: -9px;
+    border: 1px solid var(--trait);
+    text-align: center;
+}
+.etiquette p { margin: 0 auto; }
+.etiquette-titre { color: var(--gris); font-size: .95rem; }
+.etiquette-formule {
+    font-family: var(--police-titre);
+    font-size: 1.7rem;
+    font-weight: 700;
+    color: var(--indigo);
+    margin: .35rem auto .5rem;
+}
+.etiquette-exemple { font-variant-numeric: tabular-nums; color: var(--encre); }
+
+.chiffres dl {
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr));
+    border-top: 2px solid var(--indigo);
+    background: var(--papier);
+    border-bottom: 1px solid var(--trait);
+}
+.chiffres dl > div {
+    padding: 1rem 1.1rem;
+    border-right: 1px solid var(--trait);
+}
+.chiffres dl > div:last-child { border-right: 0; }
+.chiffres dt { color: var(--gris); font-size: .9rem; }
+.chiffres dd {
+    margin: 0;
+    font-family: var(--police-titre);
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--indigo);
+    font-variant-numeric: tabular-nums;
+}
+
+/* ---------- Boutons ---------- */
+.actions { display: flex; flex-wrap: wrap; gap: .75rem; align-items: center; margin: 1.25rem 0; }
+.bouton {
+    display: inline-block;
+    font: inherit;
+    font-weight: 600;
+    color: #fff;
+    background: var(--indigo);
+    border: 2px solid var(--indigo);
+    border-radius: 4px;
+    padding: .6rem 1.1rem;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color .15s, border-color .15s;
+}
+.bouton:hover { background: var(--indigo-clair); border-color: var(--indigo-clair); color: #fff; }
+.bouton-entree { background: var(--entree); border-color: var(--entree); }
+.bouton-entree:hover { background: #115440; border-color: #115440; }
+.bouton-sortie { background: var(--sortie); border-color: var(--sortie); }
+.bouton-sortie:hover { background: #862722; border-color: #862722; }
+.lien-secondaire { font-weight: 600; }
+
+/* ---------- Messages ---------- */
+.alerte {
+    max-width: none;
+    padding: .8rem 1rem;
+    border-left: 5px solid;
+    background: var(--papier);
+    font-weight: 500;
+}
+.alerte-succes { border-color: var(--entree); background: var(--entree-pale); color: #0f4a37; }
+.alerte-erreur { border-color: var(--sortie); background: var(--sortie-pale); color: #6e1f1b; }
+
+/* ---------- Tableaux ---------- */
+.outils {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: .6rem 1rem;
+    margin-bottom: 1rem;
+}
+.outils label { font-weight: 600; }
+.outils input[type="search"] { flex: 1 1 15rem; max-width: 24rem; }
+.compteur { color: var(--gris); font-size: .92rem; }
+
+.tableau-conteneur { overflow-x: auto; }
+.tableau {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--papier);
+    border-top: 2px solid var(--indigo);
+    border-bottom: 1px solid var(--trait);
+}
+.tableau th, .tableau td {
+    padding: .7rem .9rem;
+    text-align: left;
+    border-bottom: 1px solid #dde1ec;
+    vertical-align: middle;
+}
+.tableau th { background: var(--indigo-pale); color: var(--indigo); font-weight: 700; font-size: .95rem; }
+.tableau tbody tr:hover { background: #f5f7fc; }
+.tableau .num { text-align: right; font-variant-numeric: tabular-nums; }
+.actions-ligne a { margin-right: .9rem; font-weight: 600; }
+
+.stock {
+    display: inline-block;
+    min-width: 3rem;
+    padding: .1rem .6rem;
+    text-align: center;
+    font-weight: 700;
+    color: var(--indigo);
+    background: var(--indigo-pale);
+    border-left: 3px solid var(--indigo);
+}
+.stock-nul { color: var(--sortie); background: var(--sortie-pale); border-left-color: var(--sortie); }
+
+.type { font-weight: 600; }
+.type-entree { color: var(--entree); }
+.type-sortie { color: var(--sortie); }
+.effet { font-weight: 700; }
+.effet-plus { color: var(--entree); }
+.effet-moins { color: var(--sortie); }
+
+.vide {
+    padding: 1.1rem 1.2rem;
+    background: var(--papier);
+    border: 1px dashed var(--trait);
+    color: var(--gris);
+    max-width: none;
+}
+
+/* ---------- Fiche article ---------- */
+.fiche {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+.reference { color: var(--gris); }
+.stock-fiche {
+    min-width: 9rem;
+    padding: .9rem 1.4rem;
+    text-align: center;
+    background: var(--papier);
+    outline: 2px dashed var(--indigo);
+    outline-offset: -8px;
+    border: 1px solid var(--trait);
+}
+.stock-valeur {
+    display: block;
+    font-family: var(--police-titre);
+    font-size: 2.8rem;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--indigo);
+    font-variant-numeric: tabular-nums;
+}
+.stock-libelle { color: var(--gris); font-size: .95rem; }
+.stock-fiche-nul .stock-valeur { color: var(--sortie); }
+
+/* ---------- Formulaires ---------- */
+.formulaire {
+    background: var(--papier);
+    border: 1px solid var(--trait);
+    border-top: 4px solid var(--indigo);
+    padding: 1.5rem;
+}
+.formulaire-entree { border-top-color: var(--entree); }
+.formulaire-sortie { border-top-color: var(--sortie); }
+
+.champ { margin-bottom: 1.3rem; }
+.champ label { display: block; font-weight: 600; margin-bottom: .3rem; }
+input, select {
+    width: 100%;
+    font: inherit;
+    color: var(--encre);
+    background: #fff;
+    border: 1px solid #8d97b3;
+    border-radius: 4px;
+    padding: .6rem .7rem;
+}
+input:focus, select:focus { border-color: var(--indigo-clair); outline: 3px solid var(--safran); outline-offset: 0; }
+input.invalide, select.invalide { border-color: var(--sortie); border-width: 2px; background: #fffafa; }
+.aide { display: block; margin-top: .3rem; color: var(--gris); font-size: .9rem; }
+.erreur { display: block; margin-top: .35rem; color: var(--sortie); font-weight: 600; font-size: .95rem; }
+.indicateur-stock { display: block; margin-top: .35rem; font-size: .95rem; color: var(--indigo); font-weight: 600; }
+.indicateur-stock.depassement { color: var(--sortie); }
+.formulaire-actions { display: flex; align-items: center; gap: 1.25rem; flex-wrap: wrap; margin-top: 1.5rem; }
+
+/* ---------- Écrans étroits ---------- */
+@media (max-width: 760px) {
+    .intro { grid-template-columns: 1fr; gap: 1.5rem; }
+
+    /* sans JavaScript, le menu reste visible ; avec JavaScript, il se replie */
+    .js .menu-bouton { display: inline-block; }
+    .js .navigation { display: none; width: 100%; flex-direction: column; }
+    .js .navigation.ouverte { display: flex; }
+
+    /* tableaux : une carte par ligne */
+    .tableau thead { position: absolute; left: -9999px; }
+    .tableau, .tableau tbody, .tableau tr, .tableau td { display: block; width: 100%; }
+    .tableau tr { padding: .5rem .9rem; border-bottom: 1px solid var(--trait); }
+    .tableau td { display: flex; justify-content: space-between; gap: 1rem; border: 0; padding: .3rem 0; text-align: right; }
+    .tableau td::before { content: attr(data-label); font-weight: 600; color: var(--gris); text-align: left; }
+    .tableau .num { text-align: right; }
+
+    .chiffres dl > div { border-right: 0; border-bottom: 1px solid var(--trait); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; }
+}

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Page introuvable')}"></head>
+<body>
+<header th:replace="~{fragments/layout :: entete('')}"></header>
+<main class="page page-etroite">
+    <h1>Page introuvable</h1>
+    <p class="chapeau">Cette adresse ne correspond à aucune page, ou l’article demandé n’existe pas.</p>
+    <p class="actions">
+        <a class="bouton" th:href="@{/articles}">Voir les articles</a>
+        <a class="lien-secondaire" th:href="@{/}">Retour à l’accueil</a>
+    </p>
+</main>
+<footer th:replace="~{fragments/layout :: pied}"></footer>
+</body>
+</html>

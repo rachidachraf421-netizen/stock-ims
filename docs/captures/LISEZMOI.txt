@@ -1,0 +1,7 @@
+Placer ici les trois captures d'ecran prises sur votre ordinateur, application lancee :
+
+  01-interface.png            page d'accueil ou liste des articles (interface personnalisee)
+  02-stock-calcule.png        fiche d'un article avec stock 13 et son historique (+20, -7)
+  03-message-validation.png   sortie de 15 refusee avec le message d'erreur
+
+Supprimer ensuite ce fichier. Les captures sont citees dans README.md.

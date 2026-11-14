@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Erreur')}"></head>
+<body>
+<header th:replace="~{fragments/layout :: entete('')}"></header>
+<main class="page page-etroite">
+    <h1>Une erreur est survenue</h1>
+    <p class="chapeau">La page demandée n’a pas pu être affichée. Vérifiez que MySQL est démarré, puis lisez la console de l’application pour connaître la cause.</p>
+    <p><a class="bouton" th:href="@{/}">Retour à l’accueil</a></p>
+</main>
+<footer th:replace="~{fragments/layout :: pied}"></footer>
+</body>
+</html>

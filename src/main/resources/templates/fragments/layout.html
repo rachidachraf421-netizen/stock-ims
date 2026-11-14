@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head(titre)">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:text="${titre} + ' | StockIMS'">StockIMS</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <script th:src="@{/js/app.js}" defer></script>
+</head>
+<body>
+
+<header class="entete" th:fragment="entete(actif)">
+    <div class="entete-contenu">
+        <a class="marque" th:href="@{/}">
+            <span class="marque-fil" aria-hidden="true"></span>StockIMS
+        </a>
+        <button type="button" class="menu-bouton" aria-expanded="false" aria-controls="navigation">Menu</button>
+        <nav id="navigation" class="navigation" aria-label="Navigation principale">
+            <a th:href="@{/}" th:classappend="${actif == 'accueil'} ? 'actif'">Accueil</a>
+            <a th:href="@{/articles}" th:classappend="${actif == 'articles'} ? 'actif'">Articles</a>
+            <a th:href="@{/mouvements/entree}" th:classappend="${actif == 'entree'} ? 'actif'">Entrée</a>
+            <a th:href="@{/mouvements/sortie}" th:classappend="${actif == 'sortie'} ? 'actif'">Sortie</a>
+            <a th:href="@{/mouvements}" th:classappend="${actif == 'historique'} ? 'actif'">Historique</a>
+        </nav>
+    </div>
+</header>
+
+<div class="messages" th:fragment="messages" role="status">
+    <p class="alerte alerte-succes" th:if="${succes}" th:text="${succes}">Message de confirmation</p>
+</div>
+
+<footer class="pied" th:fragment="pied">
+    <p>StockIMS, projet Spring Boot de l'ESITH (filière IMS). Le stock d'un article est la somme de ses entrées moins la somme de ses sorties.</p>
+</footer>
+
+</body>
+</html>

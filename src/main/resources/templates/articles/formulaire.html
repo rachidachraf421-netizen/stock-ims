@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Nouvel article')}"></head>
+<body>
+<header th:replace="~{fragments/layout :: entete('articles')}"></header>
+
+<main class="page page-etroite">
+    <div class="titre-page">
+        <h1>Nouvel article</h1>
+    </div>
+
+    <form class="formulaire" th:action="@{/articles}" th:object="${article}"
+          method="post" novalidate>
+        <p class="alerte alerte-erreur" role="alert" th:if="${#fields.hasErrors('*')}">
+            Le formulaire contient des erreurs. Corrigez les champs signalés, puis enregistrez de nouveau.
+        </p>
+
+        <div class="champ">
+            <label for="reference">Référence</label>
+            <input id="reference" th:field="*{reference}" autocomplete="off"
+                   th:classappend="${#fields.hasErrors('reference')} ? 'invalide'">
+            <span class="aide">Unique, 20 caractères au maximum. Exemple : TIS-001.</span>
+            <span class="erreur" th:if="${#fields.hasErrors('reference')}" th:errors="*{reference}"></span>
+        </div>
+
+        <div class="champ">
+            <label for="designation">Désignation</label>
+            <input id="designation" th:field="*{designation}" autocomplete="off"
+                   th:classappend="${#fields.hasErrors('designation')} ? 'invalide'">
+            <span class="aide">Nom de l'article, 80 caractères au maximum. Exemple : Rouleau de coton.</span>
+            <span class="erreur" th:if="${#fields.hasErrors('designation')}" th:errors="*{designation}"></span>
+        </div>
+
+        <div class="formulaire-actions">
+            <button type="submit" class="bouton">Enregistrer l'article</button>
+            <a class="lien-secondaire" th:href="@{/articles}">Retour à la liste</a>
+        </div>
+    </form>
+</main>
+
+<footer th:replace="~{fragments/layout :: pied}"></footer>
+</body>
+</html>

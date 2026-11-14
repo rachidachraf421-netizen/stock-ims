@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Articles')}"></head>
+<body>
+<header th:replace="~{fragments/layout :: entete('articles')}"></header>
+
+<main class="page">
+    <div th:replace="~{fragments/layout :: messages}"></div>
+
+    <div class="titre-page">
+        <h1>Les articles</h1>
+        <a class="bouton" th:href="@{/articles/nouveau}">Ajouter un article</a>
+    </div>
+
+    <div class="outils" th:unless="${#lists.isEmpty(articles)}">
+        <label for="recherche">Rechercher un article</label>
+        <input id="recherche" type="search" autocomplete="off"
+               placeholder="Référence ou désignation"
+               data-filtre="#tableau-articles" data-vide="aucun-resultat" data-compteur="compteur-articles">
+        <span class="compteur" id="compteur-articles" aria-live="polite"></span>
+    </div>
+
+    <div class="tableau-conteneur" th:unless="${#lists.isEmpty(articles)}">
+        <table class="tableau" id="tableau-articles">
+            <thead>
+            <tr>
+                <th>ID</th><th>Référence</th><th>Désignation</th><th class="num">Stock</th><th>Mouvements</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="a : ${articles}">
+                <td data-label="ID" th:text="${a.article.id}">1</td>
+                <td data-label="Référence">
+                    <a th:href="@{/articles/{id}(id=${a.article.id})}" th:text="${a.article.reference}">TIS-001</a>
+                </td>
+                <td data-label="Désignation" th:text="${a.article.designation}">Rouleau de coton</td>
+                <td data-label="Stock" class="num">
+                    <span class="stock" th:classappend="${a.stock == 0} ? 'stock-nul'" th:text="${a.stock}">0</span>
+                </td>
+                <td data-label="Mouvements" class="actions-ligne">
+                    <a th:href="@{/mouvements/entree(articleId=${a.article.id})}">Entrée</a>
+                    <a th:href="@{/mouvements/sortie(articleId=${a.article.id})}">Sortie</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <p class="vide" id="aucun-resultat" hidden>Aucun article ne correspond à la recherche. Essayez une autre référence ou désignation.</p>
+    <p class="vide" th:if="${#lists.isEmpty(articles)}">
+        Aucun article. <a th:href="@{/articles/nouveau}">Ajoutez le premier article</a> pour commencer.
+    </p>
+</main>
+
+<footer th:replace="~{fragments/layout :: pied}"></footer>
+</body>
+</html>

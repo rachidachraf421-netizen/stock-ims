@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Fiche article')}"></head>
+<body>
+<header th:replace="~{fragments/layout :: entete('articles')}"></header>
+
+<main class="page">
+    <div th:replace="~{fragments/layout :: messages}"></div>
+
+    <p class="fil"><a th:href="@{/articles}">Articles</a> / <span th:text="${article.reference}">TIS-001</span></p>
+
+    <section class="fiche">
+        <div>
+            <h1 th:text="${article.designation}">Rouleau de coton</h1>
+            <p class="reference">Référence <strong th:text="${article.reference}">TIS-001</strong></p>
+        </div>
+        <div class="stock-fiche" th:classappend="${stock == 0} ? 'stock-fiche-nul'">
+            <span class="stock-valeur" th:text="${stock}">13</span>
+            <span class="stock-libelle">en stock</span>
+        </div>
+    </section>
+
+    <div class="actions">
+        <a class="bouton bouton-entree" th:href="@{/mouvements/entree(articleId=${article.id})}">Enregistrer une entrée</a>
+        <a class="bouton bouton-sortie" th:href="@{/mouvements/sortie(articleId=${article.id})}">Enregistrer une sortie</a>
+    </div>
+
+    <h2>Historique des mouvements</h2>
+
+    <div class="tableau-conteneur" th:unless="${#lists.isEmpty(mouvements)}">
+        <table class="tableau">
+            <thead>
+            <tr><th>Date</th><th>Type</th><th class="num">Quantité</th><th class="num">Effet sur le stock</th></tr>
+            </thead>
+            <tbody>
+            <tr th:each="m : ${mouvements}">
+                <td data-label="Date" th:text="${#temporals.format(m.dateMouvement, 'dd/MM/yyyy')}">01/01/2026</td>
+                <td data-label="Type">
+                    <span class="type" th:classappend="${m.quantiteSignee() > 0} ? 'type-entree' : 'type-sortie'"
+                          th:text="${m.quantiteSignee() > 0 ? 'Entrée' : 'Sortie'}">Entrée</span>
+                </td>
+                <td data-label="Quantité" class="num" th:text="${m.quantite}">20</td>
+                <td data-label="Effet sur le stock" class="num effet"
+                    th:classappend="${m.quantiteSignee() > 0} ? 'effet-plus' : 'effet-moins'"
+                    th:text="${m.quantiteSignee() > 0 ? '+' + m.quantite : '−' + m.quantite}">+20</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <p class="vide" th:if="${#lists.isEmpty(mouvements)}">
+        Aucun mouvement pour cet article : son stock est de 0. Enregistrez une première entrée.
+    </p>
+</main>
+
+<footer th:replace="~{fragments/layout :: pied}"></footer>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Mouvement de stock')}"></head>
+<body>
+<header th:replace="~{fragments/layout :: entete(${actif})}"></header>
+
+<main class="page page-etroite">
+    <div class="titre-page">
+        <h1 th:text="${sortie} ? 'Enregistrer une sortie' : 'Enregistrer une entrée'">Enregistrer une entrée</h1>
+    </div>
+    <p class="chapeau"
+       th:text="${sortie} ? 'Une sortie retire des unités du stock. Elle est refusée si elle dépasse le stock disponible.' : 'Une entrée ajoute des unités au stock de l’article.'">
+        Une entrée ajoute des unités au stock de l’article.
+    </p>
+
+    <form class="formulaire" th:classappend="${sortie} ? 'formulaire-sortie' : 'formulaire-entree'"
+          th:action="${sortie} ? @{/mouvements/sortie} : @{/mouvements/entree}"
+          th:object="${mouvement}" method="post" novalidate
+          th:attr="data-type=${sortie} ? 'sortie' : 'entree'">
+
+        <p class="alerte alerte-erreur" role="alert" th:if="${#fields.hasErrors('*')}">
+            Le mouvement n’a pas été enregistré. Corrigez les champs signalés, puis validez de nouveau.
+        </p>
+
+        <div class="champ">
+            <label for="articleId">Article</label>
+            <select id="articleId" th:field="*{articleId}"
+                    th:classappend="${#fields.hasErrors('articleId')} ? 'invalide'">
+                <option value="">Choisir un article</option>
+                <option th:each="a : ${articles}" th:value="${a.article.id}"
+                        th:text="${a.article.reference + ' - ' + a.article.designation}"
+                        th:attr="data-stock=${a.stock}">TIS-001 - Rouleau de coton</option>
+            </select>
+            <span class="indicateur-stock" id="indicateur-stock" aria-live="polite"></span>
+            <span class="erreur" th:if="${#fields.hasErrors('articleId')}" th:errors="*{articleId}"></span>
+        </div>
+
+        <div class="champ">
+            <label for="quantite">Quantité</label>
+            <input id="quantite" type="number" inputmode="numeric" min="1" step="1"
+                   th:field="*{quantite}"
+                   th:classappend="${#fields.hasErrors('quantite')} ? 'invalide'">
+            <span class="aide">Nombre entier strictement positif.</span>
+            <span class="erreur" th:if="${#fields.hasErrors('quantite')}" th:errors="*{quantite}"></span>
+        </div>
+
+        <div class="champ">
+            <label for="dateMouvement">Date du mouvement</label>
+            <input id="dateMouvement" type="date" th:field="*{dateMouvement}"
+                   th:classappend="${#fields.hasErrors('dateMouvement')} ? 'invalide'">
+            <span class="erreur" th:if="${#fields.hasErrors('dateMouvement')}" th:errors="*{dateMouvement}"></span>
+        </div>
+
+        <div class="formulaire-actions">
+            <button type="submit" class="bouton"
+                    th:classappend="${sortie} ? 'bouton-sortie' : 'bouton-entree'"
+                    th:text="${sortie} ? 'Enregistrer la sortie' : 'Enregistrer l’entrée'">Enregistrer</button>
+            <a class="lien-secondaire" th:href="@{/articles}">Retour à la liste</a>
+        </div>
+    </form>
+</main>
+
+<footer th:replace="~{fragments/layout :: pied}"></footer>
+</body>
+</html>

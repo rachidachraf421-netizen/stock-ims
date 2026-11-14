@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Accueil')}"></head>
+<body>
+<header th:replace="~{fragments/layout :: entete('accueil')}"></header>
+
+<main class="page">
+    <div th:replace="~{fragments/layout :: messages}"></div>
+
+    <section class="intro">
+        <div class="intro-texte">
+            <h1 th:text="${message}">Bienvenue</h1>
+            <p>Gestion des articles, des entrées et des sorties.</p>
+            <div class="actions">
+                <a class="bouton" th:href="@{/articles}">Voir les articles</a>
+                <a class="bouton bouton-entree" th:href="@{/mouvements/entree}">Enregistrer une entrée</a>
+                <a class="bouton bouton-sortie" th:href="@{/mouvements/sortie}">Enregistrer une sortie</a>
+            </div>
+        </div>
+        <aside class="etiquette" aria-label="Règle de calcul du stock">
+            <p class="etiquette-titre">Calcul du stock</p>
+            <p class="etiquette-formule">entrées − sorties</p>
+            <p class="etiquette-exemple">Exemple : 20 − 7 = 13</p>
+        </aside>
+    </section>
+
+    <section class="chiffres" aria-label="Résumé du stock">
+        <dl>
+            <div><dt>Articles</dt><dd th:text="${nbArticles}">0</dd></div>
+            <div><dt>Unités en stock</dt><dd th:text="${stockTotal}">0</dd></div>
+            <div><dt>Articles sans stock</dt><dd th:text="${nbSansStock}">0</dd></div>
+            <div><dt>Entrées enregistrées</dt><dd th:text="${nbEntrees}">0</dd></div>
+            <div><dt>Sorties enregistrées</dt><dd th:text="${nbSorties}">0</dd></div>
+        </dl>
+    </section>
+</main>
+
+<footer th:replace="~{fragments/layout :: pied}"></footer>
+</body>
+</html>
